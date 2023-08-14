@@ -1,0 +1,11 @@
+USE CASPER;
+
+CREATE OR REPLACE VIEW STUDENT_VIEW AS 
+       SELECT DISTINCT Initials, SSN, LName, FName, Email FROM TEMP GROUP BY Initials, SSN;
+
+INSERT INTO STUDENT (Initials, SSN, LName, FName, Email)
+SELECT Initials, SSN, LName, FName, Email FROM STUDENT_VIEW
+WHERE (Initials, SSN) NOT IN (SELECT Initials, SSN FROM STUDENT);
+
+
+
